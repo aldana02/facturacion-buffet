@@ -17,20 +17,29 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <x-banner />
+    <body class="font-sans antialiased" style="background-color: rgb(186, 121, 43);">
+
+        @auth
+            <x-banner />
+        @endauth
 
         <div class="min-h-screen" style="background-color:rgb(186, 121, 43);">
-            @livewire('navigation-menu')
+            @auth
+                @livewire('navigation-menu')
+            @endauth
 
             <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+            @auth
+                @if (isset($header))
+                    <header class="bg-white shadow">
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endif
+            @endauth
+
+
 
             <!-- Page Content -->
             <main>

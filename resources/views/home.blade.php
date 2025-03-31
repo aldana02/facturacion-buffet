@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center mt-6">
-        @auth
+    @auth
+        <div class="text-center mt-6">
             <h1 class="text-2xl font-semibold mb-4">Panel de control</h1>
 
             <form action="{{ route('facturas.facturarDia') }}" method="POST" class="mb-6">
@@ -46,15 +46,21 @@
                     ➕ Añadir cliente
                 </a>
             </div>
-        @else
-            <div class="flex flex-col items-center justify-center mt-12">
-                <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="h-40 w-40 rounded-full shadow mb-6">
+        </div>
+    @else
+        {{-- Vista personalizada para invitados --}}
+        <div class="min-h-screen flex items-center justify-center text-center" style="background-color: rgb(186, 121, 43);">
+            <div>
+            <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="h-12 w-12 rounded-full shadow">
                 <h2 class="text-3xl font-semibold text-white">¡Bienvenido/a al sistema de facturación!</h2>
                 <p class="text-white mt-2">Iniciá sesión para acceder al panel de control.</p>
                 <a href="{{ route('login') }}" class="mt-4 inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
                     🔐 Iniciar sesión
                 </a>
+                <a href="{{ route('register') }}" class="inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
+                    📝 Registrarse
+                </a>
             </div>
-        @endauth
-    </div>
+        </div>
+    @endauth
 @endsection

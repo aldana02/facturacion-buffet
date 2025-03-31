@@ -40,13 +40,13 @@
                             style="display: none;"
                         >
                             <div class="py-1 text-sm text-gray-700">
-                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                <!-- <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Account') }}
-                                </div>
+                                </div> -->
 
-                                <a href="{{ route('profile.show') }}" class="block px-4 py-2 hover:bg-gray-100">
+                                <!-- <a href="{{ route('profile.show') }}" class="block px-4 py-2 hover:bg-gray-100">
                                     {{ __('Profile') }}
-                                </a>
+                                </a>  -->
 
                                 <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-200 mt-1">
                                     @csrf

@@ -22,7 +22,7 @@
             <button type="submit" class="btn btn-primary w-100">Actualizar Venta</button>
         </form>
 
-        <a href="{{ route('ventas.index') }}" class="btn btn-secondary mt-3 w-100">← Volver</a>
+        <a href="{{ route('ventas.index') }}" class="btn btn-secondary mt-3 w-100">← Ir a Ventas</a>
     </div>
 </div>
 @endsection

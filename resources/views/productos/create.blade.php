@@ -47,7 +47,7 @@
                         <button type="submit" class="btn btn-success w-100">Guardar Producto</button>
                     </form>
 
-                    <a href="{{ route('productos.index') }}" class="btn btn-secondary mt-3 w-100">← Volver</a>
+                    <a href="{{ route('productos.index') }}" class="btn btn-secondary mt-3 w-100">← Ver Productos </a>
                 </div>
             </div>
         </div>

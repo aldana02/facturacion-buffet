@@ -67,4 +67,39 @@ class FacturaController extends Controller
 
         return redirect()->route('home')->with('success', 'Factura del día generada correctamente.');
     }
+    public function facturarSeleccionadas(Request $request)
+    {
+        $ventaIds = $request->input('ventas'); 
+
+        if (!$ventaIds || !is_array($ventaIds)) {
+            return redirect()->back()->with('error', 'No seleccionaste ninguna venta para facturar.');
+        }
+
+        // Obtener las ventas seleccionadas
+        $ventas = Venta::whereIn('id', $ventaIds)->get();
+
+        if ($ventas->isEmpty()) {
+            return redirect()->back()->with('error', 'No se encontraron ventas válidas.');
+        }
+
+        // Calcular el total sumando los importes
+        $total = $ventas->sum('total');
+
+        // Combinar los productos en una sola lista
+        $productos = [];
+        foreach ($ventas as $venta) {
+            $productos = array_merge($productos, json_decode($venta->productos, true));
+        }
+
+        // Crear la factura del día (puede adaptarse si tenés un modelo llamado Factura)
+        $factura = new Factura();
+        $factura->total = $total;
+        $factura->fecha = now();
+        $factura->productos = json_encode($productos);
+        $factura->save();
+
+        return redirect()->back()->with('success', 'Factura generada exitosamente con las ventas seleccionadas.');
+    }
+
+
 }

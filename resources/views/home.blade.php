@@ -51,7 +51,9 @@
         {{-- Vista personalizada para invitados --}}
         <div class="min-h-screen flex items-center justify-center text-center" style="background-color: rgb(186, 121, 43);">
             <div>
-            <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="h-12 w-12 rounded-full shadow">
+            <div class="flex justify-center mt-10 mb-6">
+                <img src="{{ asset('images/logo.jpeg') }}" style="width: 220px; height: 220px; border-radius: 100%; object-fit: cover;" alt="Logo" class="w-72 h-auto">
+            </div>
                 <h2 class="text-3xl font-semibold text-white">¡Bienvenido/a al sistema de facturación!</h2>
                 <p class="text-white mt-2">Iniciá sesión para acceder al panel de control.</p>
                 <a href="{{ route('login') }}" class="mt-4 inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">

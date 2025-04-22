@@ -1,4 +1,4 @@
-<div class="min-h-screen flex flex-col justify-center items-center" style="background-color: #c7f9cc;">
+<div class="min-h-screen flex flex-col justify-center items-center" style="background-color: #708238;">
     <div>
         {{ $logo }}
     </div>

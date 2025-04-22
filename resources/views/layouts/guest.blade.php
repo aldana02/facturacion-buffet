@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="bg-[#c7f9cc] font-sans antialiased">
+<body style="background-color: #708238;">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         {{ $slot }}
     </div>

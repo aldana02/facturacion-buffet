@@ -14,21 +14,21 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
                 <!-- Productos -->
-                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #c7f5e3;">
+                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #708238;">
                     <h5 class="text-xl font-bold mb-2">📦 Productos</h5>
                     <p class="text-2xl">{{ $totalProductos }}</p>
                     <a href="{{ route('productos.index') }}" class="btn btn-primary mt-3">Ver productos</a>
                 </div>
 
                 <!-- Ventas -->
-                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #c7f5e3;">
+                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #708238;">
                     <h5 class="text-xl font-bold mb-2">💰 Ventas del día</h5>
                     <p class="text-2xl">${{ number_format($totalVentas, 2) }}</p>
                     <a href="{{ route('ventas.index') }}" class="btn btn-success mt-3">Ver Ventas</a>
                 </div>
 
                 <!-- Clientes -->
-                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #c7f5e3;">
+                <div class="rounded-lg shadow p-6 border border-gray-300" style="background-color: #708238;">
                     <h5 class="text-xl font-bold mb-2">👥 Clientes</h5>
                     <p class="text-2xl">{{ $totalClientes }}</p>
                     <a href="{{ route('clientes.index') }}" class="btn btn-warning mt-3">Ver clientes</a>

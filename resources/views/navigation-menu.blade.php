@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" style="background-color: #c7f9cc;" class="border-b border-gray-100">
+<nav x-data="{ open: false }" style="background-color: #708238;" class="border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,8 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" style="color: black;">
+                        {{ ('🏠HOME') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -64,7 +64,6 @@
                 @endif
             </div>
 
-            <!-- Botón hamburguesa para móviles -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">

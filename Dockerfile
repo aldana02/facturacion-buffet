@@ -2,6 +2,10 @@ FROM php:8.1-apache
 
 RUN a2enmod rewrite
 
+# Instalar Node.js y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
+
 RUN apt-get update
 RUN apt-get install -y \
     zlib1g-dev \
@@ -31,8 +35,11 @@ COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 WORKDIR /var/www/html
 
+# Instalar dependencias de Composer y npm, y ejecutar build
 RUN chown -R www-data:www-data . \
-    && composer install
+    && composer install \
+    && npm install \
+    && npm run build
 
 # Asignar permisos correctos a storage y bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache

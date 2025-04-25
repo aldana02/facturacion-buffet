@@ -17,3 +17,6 @@
 /.fleet
 /.idea
 /.vscode
+
+/logs/*
+!logs/.gitkeep

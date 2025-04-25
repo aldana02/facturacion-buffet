@@ -11,7 +11,8 @@ RUN apt-get install -y \
     zlib1g-dev \
     libzip-dev \
     libpng-dev \
-    libjpeg-dev
+    libjpeg-dev \
+    libonig-dev
 
 RUN docker-php-ext-install \
     mysqli \

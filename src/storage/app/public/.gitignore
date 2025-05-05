@@ -1,2 +1,4 @@
 *
 !.gitignore
+/storage/afip/certs/
+.env

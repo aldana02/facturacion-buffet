@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 
+
 class ClienteController extends Controller
 {
     /**
@@ -55,6 +56,7 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
+        $cliente = Cliente::findOrFail($id);
         return view('clientes.edit', compact('cliente'));
     }
 

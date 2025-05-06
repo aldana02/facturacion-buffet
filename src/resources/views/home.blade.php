@@ -5,12 +5,12 @@
         <div class="text-center mt-6">
             <h1 class="text-2xl font-semibold mb-4">Panel de control</h1>
 
-            <form action="{{ route('facturas.facturarDia') }}" method="POST" class="mb-6">
+            <!-- <form action="{{ route('facturas.facturarDia') }}" method="POST" class="mb-6">
                 @csrf
                 <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     🧾 Generar Factura del Día
                 </button>
-            </form>
+            </form> -->
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
                 <!-- Productos -->

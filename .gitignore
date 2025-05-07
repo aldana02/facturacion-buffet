@@ -22,3 +22,4 @@
 !logs/.gitkeep
 db/
 /storage/afip/certs/
+afip/

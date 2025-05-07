@@ -12,6 +12,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./logs/:/var/www/html/storage/logs
+      - ./afip/:/var/www/html/storage/afip
     depends_on:
       - mysql
     environment:

@@ -3,7 +3,7 @@ version: '3.3'
 services:
   laravel_app:
     build:
-      context: ./src
+      context: .
       dockerfile: Dockerfile
     container_name: laravel_app
     restart: unless-stopped

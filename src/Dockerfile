@@ -1,55 +1,37 @@
 FROM php:8.1-apache
 
+# Activar mod_rewrite
 RUN a2enmod rewrite
 
-# Instalar Node.js y npm
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
-
-RUN apt-get update
-RUN apt-get install -y \
-    zlib1g-dev \
+# Instalar Node.js y dependencias del sistema
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+ && apt-get update \
+ && apt-get install -y \
+    nodejs \
+    zip \
+    unzip \
+    git \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
-    libonig-dev
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libpq-dev \
+    libicu-dev \
+ && docker-php-ext-install pdo_mysql zip mbstring exif pcntl bcmath gd
 
-RUN docker-php-ext-install \
-    mysqli \
-    gd \
-    zip \
-    pdo \
-    pdo_mysql \
-    mbstring \
-    exif \
-    pcntl \
-    bcmath
+# Instalar Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
-COPY . /var/www/html
-
-# Configurar Apache
-COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-
+# Crear directorios necesarios para Laravel
 WORKDIR /var/www/html
+RUN mkdir -p storage/framework/{cache/data,sessions,views} bootstrap/cache \
+ && chown -R www-data:www-data storage bootstrap
 
-# Instalar dependencias de Composer y npm, y ejecutar build
-RUN chown -R www-data:www-data . \
-    && composer install \
-    && npm install \
-    && npm run build
-
-# Asignar permisos correctos a storage y bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache
-
-# Solucionar problema de permisos en /var/run/
-RUN chmod -R 777 /var/run/
+# Establecer permisos correctos
+RUN chown -R www-data:www-data /var/www/html
 
 USER www-data
 
-# Iniciar Apache correctamente
-CMD exec apache2-foreground
-
+CMD ["apache2-foreground"]

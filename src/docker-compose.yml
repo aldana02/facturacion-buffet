@@ -11,7 +11,8 @@ services:
       - "5080:80"
     working_dir: /var/www/html
     volumes:
-      - ./src:/var/www/html 
+        - .:/var/www/html
+        - storage-volume:/var/www/html/storage
     depends_on:
       - mysql
     environment:
@@ -33,3 +34,6 @@ services:
       MYSQL_DATABASE: facturacion_buffet
     volumes:
       - ./db:/var/lib/mysql
+
+volumes:
+  storage-volume:

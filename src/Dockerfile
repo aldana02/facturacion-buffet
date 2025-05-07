@@ -29,7 +29,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-COPY ./src/ /var/www/html
+COPY . /var/www/html
 
 # Configurar Apache
 COPY ./docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf

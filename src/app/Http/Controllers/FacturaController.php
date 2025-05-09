@@ -55,7 +55,13 @@ class FacturaController extends Controller
         ];
 
         // Enviar la factura a AFIP
+    try {
         $res = $afip->ElectronicBilling->CreateVoucher($data);
+
+        if (!isset($res['CAE'])) {
+            Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);
+            return redirect()->route('home')->with('error', 'AFIP no devolvió CAE. Verificar configuración o datos enviados.');
+        }
 
         // Guardar la factura en la base de datos
         Factura::create([
@@ -65,7 +71,13 @@ class FacturaController extends Controller
             'vencimiento_cae' => $res['CAEFchVto'],
         ]);
 
-        return redirect()->route('home')->with('success', 'Factura del día generada correctamente.');
+        return redirect()->route('home')->with('success', 'Factura generada correctamente.');
+
+    } catch (\Exception $e) {
+        Log::error('❌ Error al crear factura con AFIP: ' . $e->getMessage());
+        return redirect()->route('home')->with('error', 'Error al generar factura: ' . $e->getMessage());
+    }
+
     }
     public function facturarSeleccionadas(Request $request)
     {

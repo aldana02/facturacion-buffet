@@ -59,9 +59,9 @@
                 <a href="{{ route('login') }}" class="mt-4 inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
                     🔐 Iniciar sesión
                 </a>
-                <a href="{{ route('register') }}" class="inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
+             <!--href="{{ route('register') }}" class="inline-block bg-white text-gray-800 font-semibold py-2 px-6 rounded shadow hover:bg-gray-100 transition">
                     📝 Registrarse
-                </a>
+                </a> -->
             </div>
         </div>
     @endauth

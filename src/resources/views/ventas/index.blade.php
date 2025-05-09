@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="py-6 px-4">
+<script src="https://sdk.mercadopago.com/js/v2"></script>
     <h2 class="text-center mb-6 text-xl font-bold">Lista de Ventas</h2>
 
     <form action="{{ route('facturas.facturarSeleccionadas') }}" method="POST">

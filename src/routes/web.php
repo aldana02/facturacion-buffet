@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VentaController;
+use App\Https\Controllers\MercadoPagoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

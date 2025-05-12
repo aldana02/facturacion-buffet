@@ -15,6 +15,7 @@ class MercadoPagoController extends Controller
     {
         // Establece el token de acceso desde config/services.php
         SDK::setAccessToken(config('services.mercadopago.access_token'));
+         
     }
 
     /**
@@ -40,7 +41,7 @@ class MercadoPagoController extends Controller
     public function webhook(Request $request)
     {
         Log::info('✅ Webhook recibido de Mercado Pago:', $request->all());
-
+        \MercadoPago\SDK::setAccessToken(env('MP_ACCESS_TOKEN'));
         // Validar tipo de notificación
         $type = $request->input('type');
         $id = $request->input('data.id');

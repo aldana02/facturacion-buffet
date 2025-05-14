@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VentaController;
-use App\Https\Controllers\MercadoPagoController;
+use App\Http\Controllers\MercadoPagoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +53,6 @@ Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name
 Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 Route::post('/facturar-dia', [FacturaController::class, 'facturarDia'])->name('facturas.facturarDia');
-Route::get('/mp/test', [App\Http\Controllers\MercadoPagoController::class, 'test']);
+Route::get('/mp/test', [MercadoPagoController::class, 'test']);
 Route::post('/facturas/seleccionadas', [FacturaController::class, 'facturarSeleccionadas'])->name('facturas.facturarSeleccionadas');
-Route::post('/mercadopago/webhook', [MercadoPagoController::class, 'webhook']);
+Route::post('/mercadopago/webhook', [MercadoPagoController::class, 'webhook'])->name('mercadopago.webhook');

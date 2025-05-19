@@ -14,7 +14,7 @@ class MercadoPagoController extends Controller
     public function __construct()
     {
         // Establece el token de acceso desde config/services.php
-        SDK::setAccessToken(config('services.mercadopago.access_token'));
+       // SDK::setAccessToken(config('services.mercadopago.access_token'));
          
     }
 

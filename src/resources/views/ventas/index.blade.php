@@ -48,7 +48,7 @@
                                         @method('DELETE')
                                         <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta?')">Eliminar</button>
                                     </form>
-                                    <form action="{{ route('facturas.facturarSeleccionadas', $venta->id) }}" method="GET" style="display:inline; color:green">
+                                    <form action="{{ route('facturar', $venta->id) }}" method="POST" style="display:inline; color:green">
                                         @csrf
                                         <button type="submit">Facturar</button>
                                     </form>

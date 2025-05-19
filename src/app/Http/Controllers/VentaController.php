@@ -68,6 +68,7 @@ class VentaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        dd($request->all());
         $request->validate([
             'total' => 'required|numeric|min:0',
             'productos' => 'required|array',

@@ -5,9 +5,9 @@
     <h2 class="text-center mb-3">Editar Venta</h2>
 
     <div class="card p-4 shadow-lg">
-        <form action="{{ route('ventas.update', $venta->id) }}" method="POST">
+        <form action="{{ route('ventas.update', $venta->id) }}" method="PUT">
             @csrf
-            @method('PUT')
+            <!-- @method('PUT') -->
 
             <div class="mb-3">
                 <label class="form-label">Total</label>

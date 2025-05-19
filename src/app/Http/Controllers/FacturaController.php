@@ -79,6 +79,38 @@ class FacturaController extends Controller
     }
 
     }
+    public function facturar($IDventa){
+        $venta = Venta::find($IDventa);
+        //dd(json_encode($venta->productos));
+        if (!$venta) {
+            return redirect()->back()->with('error', 'Venta no encontrada.');
+        }
+
+          // Enviar la factura a AFIP
+    try {
+        $res = $afip->ElectronicBilling->CreateVoucher($data);
+        dd($res);
+
+        if (!isset($res['CAE'])) {
+          //  Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);
+            return redirect()->route('ventas.index')->with('error', 'AFIP no devolvió CAE. Verificar configuración o datos enviados.');
+        }
+
+        // Guardar la factura en la base de datos
+        Factura::create([
+            'total' => $totalDelDia,
+            'fecha' => today(),
+            'cae' => $res['CAE'],
+            'vencimiento_cae' => $res['CAEFchVto'],
+        ]);
+
+        return redirect()->route('ventas.index')->with('success', 'Factura generada correctamente.');
+
+    } catch (\Exception $e) {
+    //     Log::error('❌ Error al crear factura con AFIP: ' . $e->getMessage());
+         return redirect()->route('ventas.index')->with('error', 'Error al generar factura: ' . $e->getMessage());
+    }
+    }
     public function facturarSeleccionadas(Request $request)
     {
         $ventaIds = $request->input('ventas'); 

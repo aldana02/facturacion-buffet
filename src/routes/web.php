@@ -54,6 +54,7 @@ Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('c
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 Route::post('/facturar-dia', [FacturaController::class, 'facturarDia'])->name('facturas.facturarDia');
 Route::get('/mp/test', [MercadoPagoController::class, 'test']);
+Route::POST('facturar/{venta}', [FacturaController::class, 'facturar'])->name('facturar');
 Route::get('/facturas/seleccionadas', [FacturaController::class, 'facturarSeleccionadas'])->name('facturas.facturarSeleccionadas');
 Route::post('/mercadopago/webhook', [MercadoPagoController::class, 'webhook'])->name('mercadopago.webhook');
 Route::resource('/ventas', VentaController::class);

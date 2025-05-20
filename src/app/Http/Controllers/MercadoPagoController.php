@@ -40,6 +40,9 @@ class MercadoPagoController extends Controller
      */
     public function webhook(Request $request)
     {
+        if ($request->query('token') !== env('MP_WEBHOOK_SECRET')) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+        }
         Log::info('✅ Webhook recibido de Mercado Pago:', $request->all());
         \MercadoPago\SDK::setAccessToken(env('MP_ACCESS_TOKEN'));
         // Validar tipo de notificación

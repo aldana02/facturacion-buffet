@@ -39,12 +39,12 @@ Route::post('/logout', function () {
 
 Route::resource('productos', ProductoController::class);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index'); 
-// Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create'); 
-// Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store'); 
-// Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit'); 
-// Route::get('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update'); 
-// Route::get('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy'); 
+Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index'); 
+Route::get('/ventas/create', [VentaController::class, 'create'])->name('ventas.create'); 
+Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store'); 
+Route::get('/ventas/{venta}/edit', [VentaController::class, 'edit'])->name('ventas.edit'); 
+Route::put('/ventas/{venta}', [VentaController::class, 'update'])->name('ventas.update'); 
+Route::delete('/ventas/{venta}', [VentaController::class, 'destroy'])->name('ventas.destroy'); 
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
@@ -57,4 +57,4 @@ Route::get('/mp/test', [MercadoPagoController::class, 'test']);
 Route::POST('facturar/{venta}', [FacturaController::class, 'facturar'])->name('facturar');
 Route::get('/facturas/seleccionadas', [FacturaController::class, 'facturarSeleccionadas'])->name('facturas.facturarSeleccionadas');
 Route::post('/mercadopago/webhook', [MercadoPagoController::class, 'webhook'])->name('mercadopago.webhook');
-Route::resource('/ventas', VentaController::class);
+//Route::resource('/ventas', VentaController::class);

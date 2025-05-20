@@ -69,7 +69,7 @@ class ClienteController extends Controller
             'name' => 'required|string|max:255',
             'saldo_adeudado' => 'numeric|min:0',
         ]);
-
+        $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
 
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente.');

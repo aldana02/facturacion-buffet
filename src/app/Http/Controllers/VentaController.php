@@ -68,17 +68,13 @@ class VentaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request->all());
+        //dd($request->all());
         $request->validate([
             'total' => 'required|numeric|min:0',
             'productos' => 'required|array',
         ]);
-
-        $venta->update([
-            'total' => $request->total,
-            'productos' => json_encode($request->productos),
-        ]);
-
+        $venta = Venta::findOrFail($id);
+        $venta->update($request->all());
         return redirect()->route('ventas.index')->with('success', 'Venta actualizada correctamente.');
     }
 

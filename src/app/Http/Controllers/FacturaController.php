@@ -89,7 +89,7 @@ class FacturaController extends Controller
           // Enviar la factura a AFIP
     try {
         $res = $afip->ElectronicBilling->CreateVoucher($data);
-        dd($res);
+        //dd($res);
 
         if (!isset($res['CAE'])) {
           //  Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);

@@ -40,9 +40,9 @@ class MercadoPagoController extends Controller
      */
     public function webhook(Request $request)
     {
-        if ($request->query('token') !== env('MP_WEBHOOK_SECRET')) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        // if ($request->query('token') !== env('MP_WEBHOOK_SECRET')) {
+        // return response()->json(['error' => 'Unauthorized'], 401);
+        // }
         Log::info('✅ Webhook recibido de Mercado Pago:', $request->all());
         \MercadoPago\SDK::setAccessToken(env('MP_ACCESS_TOKEN'));
         // Validar tipo de notificación
@@ -52,15 +52,14 @@ class MercadoPagoController extends Controller
         if ($type === 'payment' && $id) {
             // Consultar el pago
             $payment = Payment::find_by_id($id);
-
             if ($payment && $payment->status === 'approved') {
                 Log::info("✅ Pago aprobado. ID: {$payment->id} | Monto: {$payment->transaction_amount}");
 
                 $venta = Venta::create([
-                    'total' => $request->total,
+                    'total' => $payment->transaction_amount,
                     'productos' => json_encode($productosArray),
                     'fecha_venta' => now(),
-                ]);
+                ]); 
 
             } else {
                 Log::warning("⚠️ Pago no aprobado o no encontrado. ID recibido: {$id}");

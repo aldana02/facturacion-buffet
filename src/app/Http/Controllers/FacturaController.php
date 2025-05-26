@@ -81,35 +81,68 @@ class FacturaController extends Controller
     }
     public function facturar($IDventa){
         $venta = Venta::find($IDventa);
-        //dd(json_encode($venta->productos));
+        $data = [
+        'CantReg' => 1, // Solo una factura
+        'PtoVta' => 1, // Punto de venta 00001
+        'CbteTipo' => 11, // Código 011 = Factura C
+        'Concepto' => 1, // 1 = Productos (sin servicios ni otros)
+        'DocTipo' => 80, // 80 = CUIT
+        'DocNro' => 30562252157, // CUIT receptor
+        'CbteDesde' => 58,
+        'CbteHasta' => 58,
+        'CbteFch' => date('Ymd', strtotime('2025-05-23')), // Formato requerido: YYYYMMDD
+        'ImpTotal' => $venta->total, // Importe total de la venta
+        'ImpTotConc' => 0.00, // Importe no gravado
+        'ImpNeto' => $venta->total, // En facturas C se considera todo como neto
+        'ImpOpEx' => 0.00,
+        'ImpIVA' => 0.00,
+        'ImpTrib' => 0.00,
+        'MonId' => 'PES', // Moneda en Pesos
+        'MonCotiz' => 1.00,
+        'FchServDesde' => null, // no necesario porque Concepto = 1
+        'FchServHasta' => null,
+        'FchVtoPago' => date('Ymd', strtotime('2025-05-23')),
+        'CbtesAsoc' => [],
+        'Tributos' => [],
+        'Iva' => [],
+        'Opcionales' => [],
+        'Compradores' => []
+        ];
+        $afip = new \Afip([
+            'CUIT' => env('AFIP_CUIT'),
+            'production' => env('AFIP_PRODUCTION'),
+            'cert' => storage_path(env('AFIP_CERT')),
+            'key'  => storage_path(env('AFIP_KEY')),
+
+        ]);
         if (!$venta) {
             return redirect()->back()->with('error', 'Venta no encontrada.');
         }
 
           // Enviar la factura a AFIP
-    try {
-        $res = $afip->ElectronicBilling->CreateVoucher($data);
-        //dd($res);
+        try {
+            $res = $afip->ElectronicBilling->CreateVoucher($data);
+            dd($res['CAE']);
+            if (!isset($res['CAE'])) {
+            //  Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);
+                return redirect()->route('ventas.index')->with('error', 'AFIP no devolvió CAE. Verificar configuración o datos enviados.');
+            }
 
-        if (!isset($res['CAE'])) {
-          //  Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);
-            return redirect()->route('ventas.index')->with('error', 'AFIP no devolvió CAE. Verificar configuración o datos enviados.');
+            // Guardar la factura en la base de datos
+            Factura::create([
+                'total' => $totalDelDia,
+                'fecha' => today(),
+                'cae' => $res['CAE'],
+                'vencimiento_cae' => $res['CAEFchVto'],
+            ]);
+
+            return redirect()->route('ventas.index')->with('success', 'Factura generada correctamente.');
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        //     Log::error('❌ Error al crear factura con AFIP: ' . $e->getMessage());
+            return redirect()->route('ventas.index')->with('error', 'Error al generar factura: ' . $e->getMessage());
         }
-
-        // Guardar la factura en la base de datos
-        Factura::create([
-            'total' => $totalDelDia,
-            'fecha' => today(),
-            'cae' => $res['CAE'],
-            'vencimiento_cae' => $res['CAEFchVto'],
-        ]);
-
-        return redirect()->route('ventas.index')->with('success', 'Factura generada correctamente.');
-
-    } catch (\Exception $e) {
-    //     Log::error('❌ Error al crear factura con AFIP: ' . $e->getMessage());
-         return redirect()->route('ventas.index')->with('error', 'Error al generar factura: ' . $e->getMessage());
-    }
     }
     public function facturarSeleccionadas(Request $request)
     {

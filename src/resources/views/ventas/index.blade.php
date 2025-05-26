@@ -37,7 +37,7 @@
                             <!-- <td class="px-4 py-2"><input type="checkbox" name="ventas_seleccionadas[]" value="{{ $venta->id }}"></td> -->
                             <td class="px-4 py-2">{{ $venta->id }}</td>
                             <td class="px-4 py-2">${{ number_format($venta->total, 2) }}</td>
-                            <td class="px-4 py-2">{{ implode(', ', json_decode($venta->productos)) }}</td>
+                            <td class="px-4 py-2"> {{ str_replace('"', '', $venta->productos) }}</td>
                             <td class="px-4 py-2">{{ $venta->fecha_venta }}</td>
                             <td class="px-4 py-2">{{ $venta->es_automatica ? 'Automática' : 'Manual' }}</td>
                             <td class="px-4 py-2">

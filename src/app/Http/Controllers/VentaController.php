@@ -13,6 +13,7 @@ class VentaController extends Controller
     public function index()
     {
         $ventas = Venta::orderBy('fecha_venta', 'desc')->get();
+        //dd($ventas);
         return view('ventas.index', compact('ventas'));
     }
 
@@ -68,13 +69,11 @@ class VentaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //dd($request->all());
-        $request->validate([
-            'total' => 'required|numeric|min:0',
-            'productos' => 'required|array',
-        ]);
         $venta = Venta::findOrFail($id);
+       // dd($venta);
+      // dd($request->all());
         $venta->update($request->all());
+        //dd($venta);
         return redirect()->route('ventas.index')->with('success', 'Venta actualizada correctamente.');
     }
 

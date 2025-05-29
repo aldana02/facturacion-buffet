@@ -118,11 +118,12 @@ class FacturaController extends Controller
         if (!$venta) {
             return redirect()->back()->with('error', 'Venta no encontrada.');
         }
-
+dd($afip->GetServiceTA('wsfe'));
           // Enviar la factura a AFIP
         try {
             $res = $afip->ElectronicBilling->CreateVoucher($data);
             dd($res['CAE']);
+            dd($afip->GetServiceTA('wsfe'));
             if (!isset($res['CAE'])) {
             //  Log::error('⚠️ AFIP no devolvió CAE', ['respuesta' => $res]);
                 return redirect()->route('ventas.index')->with('error', 'AFIP no devolvió CAE. Verificar configuración o datos enviados.');

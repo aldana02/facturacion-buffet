@@ -113,7 +113,7 @@ class FacturaController extends Controller
             'production' => env('AFIP_PRODUCTION'),
             'cert' => storage_path(env('AFIP_CERT')),
             'key'  => storage_path(env('AFIP_KEY')),
-
+            'access_token:' => env('AFIP_ACCESS_TOKEN'),
         ]);
         if (!$venta) {
             return redirect()->back()->with('error', 'Venta no encontrada.');
